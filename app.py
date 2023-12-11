@@ -77,7 +77,7 @@ def load_transformer_model():
 
 @st.cache_data
 def load_embeddings():
-    embeddings = pd.concat(list(map(pd.read_csv, ["/content/drive/Shareddrives/1:1 Pranav Goel/MathBERT/Dataset/MATHBERT Embedded CSVs/MathBertchunk_0.csv", "/content/drive/Shareddrives/1:1 Pranav Goel/MathBERT/Dataset/MATHBERT Embedded CSVs/MathBertchunk_1.csv"])), ignore_index = True)
+    embeddings = pd.concat(list(map(pd.read_csv, ["MathBertchunk_0.csv", "MathBertchunk_1.csv"])), ignore_index = True)
     return np.array(embeddings.iloc[:,:-1].values), embeddings[QUESTION_COLUMN_NAME].to_list()
 
 
