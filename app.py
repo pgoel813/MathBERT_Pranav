@@ -201,10 +201,10 @@ with tab1:
 
         if num_questions:
             #get the similar questions
-            similar_questions = get_similar_question([question], num_questions, semantic_model, embeddings, questions_db)
+            similar_questions, similar_answers = get_similar_question([question], num_questions, tokenizer, model, embeddings, questions_db, answers_db)
 
             #set the answers
-            answers_holders(*similar_questions)
+            answers_holders(*similar_questions, answers =similar_answers)
 
             #define feedback state
             feedback_state = False
