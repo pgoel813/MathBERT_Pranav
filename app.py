@@ -83,7 +83,7 @@ def load_embeddings():
 
 #load models
 semantic_model = load_transformer_model()
-embeddings, questions_db = load_embeddings()
+embeddings, questions_db, answers_db = load_embeddings()
 
 
 def get_similar_question(query, num_questions, model, question_embeddings, main_questions):
