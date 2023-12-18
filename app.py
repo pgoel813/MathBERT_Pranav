@@ -210,7 +210,7 @@ with tab1:
             feedback_state = False
             button_state = True
 
-                       with st.sidebar:
+            with st.sidebar:
                 st.title("Feedback")
                 st.write("Your feedback is much appreciated for improvemment of the web application.")
                 st.subheader("How helpful was this AI Generated Response towards helping you solve this probelm?")
