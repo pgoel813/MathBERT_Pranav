@@ -10,7 +10,7 @@ import seaborn as sns
 
 MODEL_NAME = "all-MiniLM-L12-v2"
 EMBEDDING_CSV = "embeddings.csv"
-QUESTION_COLUMN_NAME = "Question"
+QUESTION_COLUMN_NAME = "Questions"
 ANSWER_COLUMN_NAME = "Answer"
 FEEDBACK_CSV = "feedback.csv"
 FEEDBACK_COLUMN_ONE = "Date"
