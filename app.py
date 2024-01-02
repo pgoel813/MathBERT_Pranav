@@ -10,12 +10,13 @@ import seaborn as sns
 
 MODEL_NAME = "all-MiniLM-L12-v2"
 EMBEDDING_CSV = "embeddings.csv"
-QUESTION_COLUMN_NAME = "Questions"
+QUESTION_COLUMN_NAME = "Question"
+ANSWER_COLUMN_NAME = "Answer"
 FEEDBACK_CSV = "feedback.csv"
 FEEDBACK_COLUMN_ONE = "Date"
 FEEDBACK_COLUMN_TWO = "Question"
 FEEDBACK_COLUMN_THREE = "Feedback"
-
+FEEDBACK_COLUMN_FOUR = "Answer Provided"
 STYLING = """
     <style>
         .about {
@@ -78,7 +79,7 @@ def load_transformer_model():
 @st.cache_data
 def load_embeddings():
     embeddings = pd.concat(list(map(pd.read_csv, ["MathBertchunk_0.csv", "MathBertchunk_1.csv"])), ignore_index = True)
-    return np.array(embeddings.iloc[:,:-1].values), embeddings[QUESTION_COLUMN_NAME].to_list()
+    return np.array(embeddings.iloc[:,:-1].values), embeddings[QUESTION_COLUMN_NAME].to_list(), embeddings[ANSWER_COLUMN_NAME].to_list()
 
 
 #load models
@@ -86,7 +87,7 @@ semantic_model = load_transformer_model()
 embeddings, questions_db, answers_db = load_embeddings()
 
 
-def get_similar_question(query, num_questions, model, question_embeddings, main_questions):
+def get_similar_question(query, num_questions, model, question_embeddings, main_questions, main_answers):
     answers_dict = []
     questions_dict = []
     #embed the query
@@ -102,7 +103,7 @@ def get_similar_question(query, num_questions, model, question_embeddings, main_
     #get related question
     for question_index in indexes:
         questions_dict.append(main_questions[question_index])
-        answers_dict.append(main_questions[question_index])
+        answers_dict.append(main_answers[question_index])
 
     return questions_dict, answers_dict
 
@@ -171,6 +172,22 @@ about_div = """
 
 #set the container
 st.markdown(about_div, unsafe_allow_html = True)
+
+#set description
+examples_div = """
+    <div class="Examples">
+        <h3>Example questions to help you get started!</h3>
+        <ul>
+            <li>A box has 5 dozen bottles of apple juice and half a dozen more bottle of orange juice than apple juice. How many bottles are in the box?</li>
+            <li>Tim can read 10 pages of a book in 30 minutes.  How many hours will it take him to read 120 pages?</li>
+            <li>What is 30 more than a quarter of 40?</li>
+            <li>The price of a home is $120 per square foot. The house is 3000 square feet and the shed is 1000 square feet. How much is this property?</li>
+            <li>If 40 out of 100 people like basketball and out of those that like it, 30% play it, how many people would you expect play basketball out of a group of 300 people?</li>
+        </ul>
+    </div>
+"""
+#set the container
+st.markdown(examples_div, unsafe_allow_html = True)
 
 #create tabs
 tab1, tab2 = st.tabs(["Questions 🧮", "Dashboard 📊"])
