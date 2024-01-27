@@ -93,7 +93,7 @@ def get_similar_question(query, num_questions, model, question_embeddings, main_
     #embed the query
     query_embedding = model.encode(query, convert_to_tensor=False)
     query_embedding = query_embedding.astype(np.float32)
-    #question_embeddings = question_embeddings.astype(np.float32)
+    question_embeddings = question_embeddings.astype(np.float32)
     #get the similarity
     cos_score = util.cos_sim(query_embedding, question_embeddings)
     top_scores = torch.topk(cos_score,max(1, num_questions))
@@ -217,6 +217,7 @@ with tab1:
         num_questions = st.slider("Number of Questions You want", min_value = 1, max_value = 5, value = 1)
 
         if num_questions:
+            semantic_model.encode([question], convert_to_tensor=False)
             #get the similar questions
             similar_questions, similar_answers = get_similar_question([question], num_questions, semantic_model, embeddings, questions_db, answers_db)
 
