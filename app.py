@@ -219,7 +219,6 @@ with tab1:
         num_questions = st.slider("Number of Questions You want", min_value = 1, max_value = 5, value = 1)
 
         if num_questions:
-            semantic_model.encode([question], convert_to_tensor=False)
             #get the similar questions
             similar_questions, similar_answers = get_similar_question([question], num_questions, semantic_model, embeddings, questions_db, answers_db)
 
