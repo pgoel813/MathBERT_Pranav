@@ -97,7 +97,7 @@ def get_similar_question(query, num_questions, model, question_embeddings, main_
     #get the similarity
     print(question_embeddings)
     print(query_embedding)
-    cos_score = util.cos_sim(query_embedding, question_embeddings)
+    cos_score = util.cos_sim(query_embedding.transpose(0,1), question_embeddings)
     top_scores = torch.topk(cos_score,max(1, num_questions))
 
     #get the index array
