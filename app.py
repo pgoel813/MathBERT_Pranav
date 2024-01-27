@@ -94,10 +94,11 @@ def get_similar_question(query, num_questions, model, question_embeddings, main_
     query_embedding = model.encode(query, convert_to_tensor=False)
     query_embedding = query_embedding.astype(np.float32)
     question_embeddings = question_embeddings.astype(np.float32)
-    """
     #get the similarity
-    #cos_score = util.cos_sim(query_embedding, question_embeddings)
-    #top_scores = torch.topk(cos_score,max(1, num_questions))
+    print(question_embeddings)
+    print(query_embedding)
+    cos_score = util.cos_sim(query_embedding, question_embeddings)
+    top_scores = torch.topk(cos_score,max(1, num_questions))
 
     #get the index array
     indexes = top_scores[1][0]
@@ -106,7 +107,6 @@ def get_similar_question(query, num_questions, model, question_embeddings, main_
     for question_index in indexes:
         questions_dict.append(main_questions[question_index])
         answers_dict.append(main_answers[question_index])
-    """
     return questions_dict, answers_dict
 
 
