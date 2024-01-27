@@ -92,8 +92,8 @@ def get_similar_question(query, num_questions, model, question_embeddings, main_
     questions_dict = []
     #embed the query
     query_embedding = model.encode(query, convert_to_tensor=False)
+    query_embedding = query_embedding.astype(np.float32)
     """
-    #query_embedding = query_embedding.astype(np.float32)
     #question_embeddings = question_embeddings.astype(np.float32)
     #get the similarity
     #cos_score = util.cos_sim(query_embedding, question_embeddings)
